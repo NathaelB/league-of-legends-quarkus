@@ -9,19 +9,19 @@ import java.util.Optional;
 
 @ApplicationScoped
 public class ChampionRepository {
-    private final List<Champion> champions = new ArrayList<>();
+  private final List<Champion> champions = new ArrayList<>();
 
-    public void addChampion(Champion champion) {
-        champions.add(champion);
-    }
+  public void addChampion (Champion champion) {
+    champions.add(champion);
+  }
 
-    public List<Champion> findAll() {
-        return champions;
-    }
+  public List<Champion> findAll () {
+    return champions;
+  }
 
-    public Optional<Champion> findByName(String name) {
-        return champions.stream()
-                .filter(champion -> champion.getName().toLowerCase().equalsIgnoreCase(name))
-                .findFirst();
-    }
+  public Optional<Champion> findByName (String name) {
+    return champions.stream()
+        .filter(champion -> champion.getName().toLowerCase().equalsIgnoreCase(name))
+        .findFirst();
+  }
 }

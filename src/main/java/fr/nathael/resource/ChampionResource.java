@@ -15,17 +15,17 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ChampionResource {
-    @Inject
-    ChampionService championService;
+  @Inject
+  ChampionService championService;
 
-    @GET
-    public List<Champion> getChampions(@QueryParam("type") String type, @QueryParam("lane") String lane) {
-        return championService.getChampions(type, lane);
-    }
+  @GET
+  public List<Champion> getChampions (@QueryParam("type") String type, @QueryParam("lane") String lane) {
+    return championService.getChampions(type, lane);
+  }
 
-    @POST
-    public Response add(@Valid ChampionDTO championDTO) {
-        championService.create(championDTO);
-        return Response.status(Response.Status.CREATED).build();
-    }
+  @POST
+  public Response add (@Valid ChampionDTO championDTO) {
+    championService.create(championDTO);
+    return Response.status(Response.Status.CREATED).build();
+  }
 }

@@ -13,25 +13,25 @@ import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class ChampionService {
-    @Inject
-    ChampionRepository championRepository;
+  @Inject
+  ChampionRepository championRepository;
 
-    private void addChampion(Champion champion) {
-        championRepository.addChampion(champion);
-    }
+  private void addChampion (Champion champion) {
+    championRepository.addChampion(champion);
+  }
 
-    public List<Champion> getChampions(String type, String lane) {
-        return championRepository.findAll().stream()
-                .filter(champion -> (type == null || champion.getChampionType().name().equals(type)) &&
-                        (lane == null || champion.getLane().name().equals(lane)))
-                .collect(Collectors.toList());
-    }
+  public List<Champion> getChampions (String type, String lane) {
+    return championRepository.findAll().stream()
+        .filter(champion -> (type == null || champion.getChampionType().name().equals(type)) &&
+            (lane == null || champion.getLane().name().equals(lane)))
+        .collect(Collectors.toList());
+  }
 
-    public void create(ChampionDTO championDTO) {
-        if (championRepository.findByName(championDTO.getName()).isPresent()) {
-            throw new ChampionAlreadyExistsException("A champion with the same name already exists.");
-        }
-        Champion champion = new Champion(championDTO.getName(), championDTO.getChampionType(), championDTO.getLifePoints(), new ArrayList<>(), championDTO.getLane());
-        addChampion(champion);
+  public void create (ChampionDTO championDTO) {
+    if (championRepository.findByName(championDTO.getName()).isPresent()) {
+      throw new ChampionAlreadyExistsException("A champion with the same name already exists.");
     }
+    Champion champion = new Champion(championDTO.getName(), championDTO.getChampionType(), championDTO.getLifePoints(), new ArrayList<>(), championDTO.getLane());
+    addChampion(champion);
+  }
 }
