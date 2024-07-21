@@ -7,7 +7,6 @@ import fr.nathael.repository.ChampionRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,11 +26,20 @@ public class ChampionService {
         .collect(Collectors.toList());
   }
 
-  public void create (ChampionDTO championDTO) {
+  public Champion create (ChampionDTO championDTO) {
     if (championRepository.findByName(championDTO.getName()).isPresent()) {
       throw new ChampionAlreadyExistsException("A champion with the same name already exists.");
     }
-    Champion champion = new Champion(championDTO.getName(), championDTO.getChampionType(), championDTO.getLifePoints(), new ArrayList<>(), championDTO.getLane());
-    addChampion(champion);
+    //Champion champion = new Champion(championDTO.getName(), championDTO.getChampionType(), championDTO.getLifePoints(), new ArrayList<>(), championDTO.getLane());
+    //addChampion(champion);
+    return championRepository.createChampion(championDTO);
+  }
+
+  public void delete (String name) {
+    championRepository.deleteChampion(name);
+  }
+
+  public void update (String name, Champion champion) {
+    championRepository.updateChampion(name, champion);
   }
 }

@@ -25,7 +25,14 @@ public class ChampionResource {
 
   @POST
   public Response add (@Valid ChampionDTO championDTO) {
-    championService.create(championDTO);
-    return Response.status(Response.Status.CREATED).build();
+    Champion champion = championService.create(championDTO);
+    return Response.status(Response.Status.CREATED).entity(champion).build();
+  }
+
+  @PUT
+  @Path("/{name}")
+  public Response update (@PathParam("name") String name, Champion champion) {
+    championService.update(name, champion);
+    return Response.status(Response.Status.NO_CONTENT).build();
   }
 }

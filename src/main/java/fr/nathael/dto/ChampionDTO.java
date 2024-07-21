@@ -1,11 +1,15 @@
 package fr.nathael.dto;
 
+import fr.nathael.model.Ability;
 import fr.nathael.model.Lanes;
 import fr.nathael.model.Roles;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChampionDTO {
   @NotBlank(message = "Name is mandatory")
@@ -20,6 +24,9 @@ public class ChampionDTO {
 
   @NotNull(message = "Lane is mandatory")
   private Lanes lane;
+
+  @NotNull(message = "Abilities are mandatory")
+  private List<Ability> abilities = new ArrayList<>();
 
   // Getters and Setters
   public String getName () {
@@ -53,5 +60,13 @@ public class ChampionDTO {
 
   public void setLane (Lanes lane) {
     this.lane = lane;
+  }
+
+  public List<Ability> getAbilities () {
+    return abilities;
+  }
+
+  public void setAbilities (List<Ability> abilities) {
+    this.abilities = abilities;
   }
 }
