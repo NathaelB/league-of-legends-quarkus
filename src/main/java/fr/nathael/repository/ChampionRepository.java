@@ -1,6 +1,7 @@
 package fr.nathael.repository;
 
 import fr.nathael.dto.ChampionDTO;
+import fr.nathael.exception.ChampionNotFoundException;
 import fr.nathael.model.Champion;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -32,16 +33,20 @@ public class ChampionRepository {
     return champion;
   }
 
-  public void deleteChampion (String name) {
-    champions.removeIf(champion -> champion.getName().equalsIgnoreCase(name));
+  public boolean deleteChampion (String name) {
+    System.out.println("Deleting champion with name: " + name);
+    boolean t = champions.removeIf(champion -> champion.getName().equalsIgnoreCase(name));
+    if (!t) {
+      throw new ChampionNotFoundException("Champion with name " + name + " not found");
+    }
+    return true;
   }
 
   public void updateChampion (String name, Champion champion) {
-    for (int i = 0; i < champions.size(); i++) {
-      if (champions.get(i).getName().equalsIgnoreCase(name)) {
-        champions.set(i, champion);
-        break;
-      }
+    boolean deleted = deleteChampion(name);
+    if (deleted) {
+      addChampion(champion);
     }
+
   }
 }

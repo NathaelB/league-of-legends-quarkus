@@ -21,6 +21,10 @@ public class Champion {
     return name;
   }
 
+  public void setName (String name) {
+    this.name = name;
+  }
+
   public void setChampionName (String championName) {
     this.name = championName.substring(0, 1).toUpperCase() + championName.substring(1).toLowerCase();
   }

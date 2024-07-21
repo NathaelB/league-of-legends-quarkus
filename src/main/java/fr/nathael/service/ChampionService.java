@@ -1,7 +1,9 @@
 package fr.nathael.service;
 
 import fr.nathael.dto.ChampionDTO;
+import fr.nathael.dto.ChampionUpdateDTO;
 import fr.nathael.exception.ChampionAlreadyExistsException;
+import fr.nathael.exception.ChampionNotFoundException;
 import fr.nathael.model.Champion;
 import fr.nathael.repository.ChampionRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -39,7 +41,20 @@ public class ChampionService {
     championRepository.deleteChampion(name);
   }
 
-  public void update (String name, Champion champion) {
-    championRepository.updateChampion(name, champion);
+  public Champion update (String name, ChampionUpdateDTO championUpdateDTO) {
+    Champion champion = championRepository.findByName(name)
+        .orElseThrow(() -> new ChampionNotFoundException("Champion with name " + name + " not found"));
+
+    if (championUpdateDTO.getName() != null) {
+      champion.setName(championUpdateDTO.getName());
+    }
+    if (championUpdateDTO.getLifePoints() != 0) {
+      champion.setLifePoints(championUpdateDTO.getLifePoints());
+    }
+    if (championUpdateDTO.getAbilities() != null && !championUpdateDTO.getAbilities().isEmpty()) {
+      champion.setAbilities(championUpdateDTO.getAbilities());
+    }
+
+    return champion;
   }
 }

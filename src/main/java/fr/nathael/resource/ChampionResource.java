@@ -1,6 +1,7 @@
 package fr.nathael.resource;
 
 import fr.nathael.dto.ChampionDTO;
+import fr.nathael.dto.ChampionUpdateDTO;
 import fr.nathael.model.Champion;
 import fr.nathael.service.ChampionService;
 import jakarta.inject.Inject;
@@ -31,8 +32,8 @@ public class ChampionResource {
 
   @PUT
   @Path("/{name}")
-  public Response update (@PathParam("name") String name, Champion champion) {
-    championService.update(name, champion);
-    return Response.status(Response.Status.NO_CONTENT).build();
+  public Response update (@PathParam("name") String name, ChampionUpdateDTO championUpdateDTO) {
+    Champion champion = championService.update(name, championUpdateDTO);
+    return Response.status(Response.Status.OK).entity(champion).build();
   }
 }
