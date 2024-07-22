@@ -1,7 +1,7 @@
 package fr.nathael.resource;
 
 import fr.nathael.dto.TeamDTO;
-import fr.nathael.exception.TeamNotFullException;
+import fr.nathael.exception.team.TeamNotFullException;
 import fr.nathael.model.Team;
 import fr.nathael.service.TeamService;
 import jakarta.inject.Inject;

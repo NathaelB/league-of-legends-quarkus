@@ -2,8 +2,8 @@ package fr.nathael.service;
 
 import fr.nathael.dto.ChampionDTO;
 import fr.nathael.dto.ChampionUpdateDTO;
-import fr.nathael.exception.ChampionAlreadyExistsException;
-import fr.nathael.exception.ChampionNotFoundException;
+import fr.nathael.exception.champion.ChampionAlreadyExistsException;
+import fr.nathael.exception.champion.ChampionNotFoundException;
 import fr.nathael.model.Ability;
 import fr.nathael.model.Champion;
 import fr.nathael.model.Lanes;

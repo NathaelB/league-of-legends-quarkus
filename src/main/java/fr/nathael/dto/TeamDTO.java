@@ -10,7 +10,7 @@ public class TeamDTO {
   private String name;
 
   @NotNull(message = "Champions distribution is mandatory")
-  private ArrayList<TeamChampionDistribution> championsDistribution;
+  private ArrayList<TeamChampionDistribution> championsDistribution = new ArrayList<>();
 
   public String getName () {
     return name;
@@ -26,5 +26,9 @@ public class TeamDTO {
 
   public void setChampionsDistribution (ArrayList<TeamChampionDistribution> championsDistribution) {
     this.championsDistribution = championsDistribution;
+  }
+
+  public void addChampionDistribution (TeamChampionDistribution championDistribution) {
+    championsDistribution.add(championDistribution);
   }
 }

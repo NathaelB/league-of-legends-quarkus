@@ -1,7 +1,7 @@
 package fr.nathael.repository;
 
 import fr.nathael.dto.ChampionDTO;
-import fr.nathael.exception.ChampionNotFoundException;
+import fr.nathael.exception.champion.ChampionNotFoundException;
 import fr.nathael.model.Champion;
 import jakarta.enterprise.context.ApplicationScoped;
 

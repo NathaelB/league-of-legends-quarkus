@@ -10,6 +10,11 @@ public class TeamChampionDistribution {
   @NotBlank(message = "Lane is mandatory")
   private Lanes lane;
 
+  public TeamChampionDistribution (String championName, Lanes lane) {
+    this.championName = championName;
+    this.lane = lane;
+  }
+
   public String getChampionName () {
     return championName;
   }

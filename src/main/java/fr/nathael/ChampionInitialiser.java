@@ -1,9 +1,12 @@
 package fr.nathael;
 
+import fr.nathael.dto.TeamChampionDistribution;
+import fr.nathael.dto.TeamDTO;
 import fr.nathael.model.Ability;
 import fr.nathael.model.Lanes;
 import fr.nathael.model.Roles;
 import fr.nathael.service.ChampionService;
+import fr.nathael.service.TeamService;
 import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
@@ -16,8 +19,12 @@ public class ChampionInitialiser {
   @Inject
   ChampionService championService;
 
+  @Inject
+  TeamService teamService;
+
   public void onStart (@Observes StartupEvent ev) {
     initChampions();
+    initTeams();
   }
 
   private void initChampions () {
@@ -93,5 +100,26 @@ public class ChampionInitialiser {
           Lanes.MID
       );
     }
+  }
+
+  private void initTeams () {
+    TeamDTO team1 = new TeamDTO();
+    team1.setName("BLEU");
+    team1.addChampionDistribution(new TeamChampionDistribution("Aatrox", Lanes.TOP));
+    team1.addChampionDistribution(new TeamChampionDistribution("Ahri", Lanes.MID));
+    team1.addChampionDistribution(new TeamChampionDistribution("Akali", Lanes.ADC));
+    team1.addChampionDistribution(new TeamChampionDistribution("Alistar", Lanes.SUPPORT));
+    team1.addChampionDistribution(new TeamChampionDistribution("Amumu", Lanes.JUNGLE));
+
+    TeamDTO team2 = new TeamDTO();
+    team2.setName("RED");
+    team2.addChampionDistribution(new TeamChampionDistribution("Annie", Lanes.TOP));
+    team2.addChampionDistribution(new TeamChampionDistribution("Ashe", Lanes.ADC));
+    team2.addChampionDistribution(new TeamChampionDistribution("Aurelion Sol", Lanes.MID));
+    team2.addChampionDistribution(new TeamChampionDistribution("Azir", Lanes.MID));
+    team2.addChampionDistribution(new TeamChampionDistribution("Aatrox", Lanes.SUPPORT));
+
+    teamService.addTeam(team1);
+    teamService.addTeam(team2);
   }
 }
