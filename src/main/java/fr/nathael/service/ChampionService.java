@@ -4,7 +4,10 @@ import fr.nathael.dto.ChampionDTO;
 import fr.nathael.dto.ChampionUpdateDTO;
 import fr.nathael.exception.ChampionAlreadyExistsException;
 import fr.nathael.exception.ChampionNotFoundException;
+import fr.nathael.model.Ability;
 import fr.nathael.model.Champion;
+import fr.nathael.model.Lanes;
+import fr.nathael.model.Roles;
 import fr.nathael.repository.ChampionRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -17,8 +20,13 @@ public class ChampionService {
   @Inject
   ChampionRepository championRepository;
 
-  private void addChampion (Champion champion) {
-    championRepository.addChampion(champion);
+  public void addChampion (String name, Roles role, int lifePoints, List<Ability> abilities, Lanes lane) {
+    Champion c = new Champion(name, role, lifePoints, abilities, lane);
+    championRepository.addChampion(c);
+  }
+
+  public List<Champion> getChampions () {
+    return championRepository.findAll();
   }
 
   public List<Champion> getChampions (String type, String lane) {
@@ -26,6 +34,11 @@ public class ChampionService {
         .filter(champion -> (type == null || champion.getChampionType().name().equals(type)) &&
             (lane == null || champion.getLane().name().equals(lane)))
         .collect(Collectors.toList());
+  }
+
+  public Champion getChampion (String name) {
+    return championRepository.findByName(name)
+        .orElseThrow(() -> new ChampionNotFoundException("Champion with name " + name + " not found"));
   }
 
   public Champion create (ChampionDTO championDTO) {
@@ -56,5 +69,9 @@ public class ChampionService {
     }
 
     return champion;
+  }
+
+  public void addChampion () {
+
   }
 }
